@@ -8,18 +8,22 @@ datasource db {
 }
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  id              String    @id
+  name            String
+  email           String
+  emailVerified   Boolean   @default(false)
+  image           String?
+  createdAt       DateTime  @default(now())
+  updatedAt       DateTime  @updatedAt
+  username        String    @unique
+  displayUsername String?
+  sessions        Session[]
+  accounts        Account[]
 
   role        Role         @default(USER)
   cubariposts CubariPost[]
+  bannedAt    DateTime?
+  banReason   String?
 
   @@unique([email])
   @@map("user")

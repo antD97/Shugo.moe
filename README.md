@@ -1,4 +1,4 @@
-# Shugo.moe
+# Shioru.moe
 
 cubari.moe link aggregator
 

@@ -1,25 +1,35 @@
+import "server-only"
+
 import { Footer } from "@/components/footer"
+import { TooltipProvider } from "@/components/ui/tooltip"
 import { cn } from "@/lib/utils"
 import { Metadata } from "next"
 import { Josefin_Slab, Martel_Sans } from "next/font/google"
+import Image from "next/image"
+import { ReactNode } from "react"
 import "./globals.css"
 
 const martelSans = Martel_Sans({ subsets: ["latin"], weight: ["300", "400", "700"], variable: "--font-sans" })
 const josefinSlab = Josefin_Slab({ subsets: ["latin"], variable: "--font-serif" })
 
 const metadata: Metadata = {
-  title: "Shugo",
-  description: "Shugo.moe",
+  title: "Shioru",
+  description: "Shioru.moe",
 }
 
-export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>) {
+export default function RootLayout({ children }: Readonly<{ children: ReactNode }>) {
   return (
     <html lang="en" className={cn("dark font-sans", martelSans.variable, josefinSlab.variable)}>
       <body className="min-h-screen grid grid-rows-[1fr_auto] antialiased">
-        <div>
-          {children}
+        <div className="fixed bottom-0 left-0 -z-100 size-[80%] opacity-10 translate-x-[-20%] translate-y-[20%] rotate-[15deg] select-none">
+          <Image src="/icon.svg" fill loading="eager" alt="Shioru background flower" />
         </div>
-        <Footer />
+        <TooltipProvider>
+          <div>
+            {children}
+          </div>
+          <Footer />
+        </TooltipProvider>
       </body>
     </html>
   )

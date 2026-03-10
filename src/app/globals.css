@@ -13,6 +13,7 @@
     --popover-foreground: oklch(0.147 0.004 49.3);
     --primary: oklch(0.514 0.222 16.935);
     --primary-foreground: oklch(0.969 0.015 12.422);
+    --primary-text: oklch(0.586 0.253 17.585);
     --secondary: oklch(0.967 0.001 286.375);
     --secondary-foreground: oklch(0.21 0.006 285.885);
     --muted: oklch(0.96 0.002 17.2);
@@ -48,6 +49,7 @@
     --popover-foreground: oklch(0.986 0.002 67.8);
     --primary: oklch(0.455 0.188 13.697);
     --primary-foreground: oklch(0.969 0.015 12.422);
+    --primary-text: oklch(58.32% 0.22734 17.514);
     --secondary: oklch(0.274 0.006 286.033);
     --secondary-foreground: oklch(0.985 0 0);
     --muted: oklch(0.268 0.011 36.5);
@@ -99,6 +101,7 @@
     --color-secondary-foreground: var(--secondary-foreground);
     --color-secondary: var(--secondary);
     --color-primary-foreground: var(--primary-foreground);
+    --color-primary-text: var(--primary-text);
     --color-primary: var(--primary);
     --color-popover-foreground: var(--popover-foreground);
     --color-popover: var(--popover);
@@ -113,6 +116,12 @@
     --radius-2xl: calc(var(--radius) * 1.8);
     --radius-3xl: calc(var(--radius) * 2.2);
     --radius-4xl: calc(var(--radius) * 2.6);
+
+    /* --color-discord: #5865F2; */ /* blurple https://discord.com/branding */
+    /* --color-github: #08872B; */ /* green 5 https://brand.github.com/foundations/color */
+    /* --color-gitlab: #E24329; */ /* orange 03p https://design.gitlab.com/brand-design/color/ */
+    /* --color-google: #4285F4; */ /* blue 500 https://partnermarketinghub.withgoogle.com/brands/google-assistant/overview/color-palette-and-typography/ */
+    /* --color-reddit: #FF4500; */ /* orange red https://www.brandcolorcode.com/reddit */
 }
 
 @layer base {

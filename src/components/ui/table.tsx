@@ -1,8 +1,7 @@
-"use client"
-
 import { cn } from "@/lib/utils"
+import { ComponentProps } from "react"
 
-const Table = ({ className, ...props }: React.ComponentProps<"table">) => (
+const Table = ({ className, ...props }: ComponentProps<"table">) => (
   <div
     data-slot="table-container"
     className="relative w-full overflow-x-auto"
@@ -15,7 +14,7 @@ const Table = ({ className, ...props }: React.ComponentProps<"table">) => (
   </div>
 )
 
-const TableHeader = ({ className, ...props }: React.ComponentProps<"thead">) => (
+const TableHeader = ({ className, ...props }: ComponentProps<"thead">) => (
   <thead
     data-slot="table-header"
     className={cn("[&_tr]:border-b", className)}
@@ -23,7 +22,7 @@ const TableHeader = ({ className, ...props }: React.ComponentProps<"thead">) => 
   />
 )
 
-const TableBody = ({ className, ...props }: React.ComponentProps<"tbody">) => (
+const TableBody = ({ className, ...props }: ComponentProps<"tbody">) => (
   <tbody
     data-slot="table-body"
     className={cn("[&_tr:last-child]:border-0", className)}
@@ -31,7 +30,7 @@ const TableBody = ({ className, ...props }: React.ComponentProps<"tbody">) => (
   />
 )
 
-const TableFooter = ({ className, ...props }: React.ComponentProps<"tfoot">) => (
+const TableFooter = ({ className, ...props }: ComponentProps<"tfoot">) => (
   <tfoot
     data-slot="table-footer"
     className={cn(
@@ -42,7 +41,7 @@ const TableFooter = ({ className, ...props }: React.ComponentProps<"tfoot">) => 
   />
 )
 
-const TableRow = ({ className, ...props }: React.ComponentProps<"tr">) => (
+const TableRow = ({ className, ...props }: ComponentProps<"tr">) => (
   <tr
     data-slot="table-row"
     className={cn(
@@ -53,7 +52,7 @@ const TableRow = ({ className, ...props }: React.ComponentProps<"tr">) => (
   />
 )
 
-const TableHead = ({ className, ...props }: React.ComponentProps<"th">) => (
+const TableHead = ({ className, ...props }: ComponentProps<"th">) => (
   <th
     data-slot="table-head"
     className={cn(
@@ -64,7 +63,7 @@ const TableHead = ({ className, ...props }: React.ComponentProps<"th">) => (
   />
 )
 
-const TableCell = ({ className, ...props }: React.ComponentProps<"td">) => (
+const TableCell = ({ className, ...props }: ComponentProps<"td">) => (
   <td
     data-slot="table-cell"
     className={cn(
@@ -78,7 +77,7 @@ const TableCell = ({ className, ...props }: React.ComponentProps<"td">) => (
 const TableCaption = ({
   className,
   ...props
-}: React.ComponentProps<"caption">) => (
+}: ComponentProps<"caption">) => (
   <caption
     data-slot="table-caption"
     className={cn("mt-4 text-sm text-muted-foreground", className)}
