@@ -13,7 +13,7 @@ const Footer = () => {
             About
           </Link>
           |
-          <Link href="https://github.com/antD97/Shioru.moe">
+          <Link href="https://github.com/antD97/Shugo.moe">
             <GithubIcon />
             {" "}
             Source

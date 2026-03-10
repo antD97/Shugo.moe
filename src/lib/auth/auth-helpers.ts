@@ -4,7 +4,7 @@ import { ALTCHA_PAYLOAD_HEADER } from "@/lib/auth/plugin-altcha"
 async function clientLogIn(
   email: string,
   password: string,
-  callbackURL: string = "/dashboard",
+  callbackURL: string = "/profile",
 ) {
   return await authClient.signIn.email({
     email,
@@ -18,7 +18,7 @@ async function clientRegister(
   username: string,
   password: string,
   altchaPayload: string,
-  callbackURL: string = "/dashboard",
+  callbackURL: string = "/profile",
 ) {
   return await authClient.signUp.email({
     email,

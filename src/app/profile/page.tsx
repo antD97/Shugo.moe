@@ -1,17 +1,17 @@
 import "server-only"
 
+import { Card } from "@/components/ui/card"
 import { auth } from "@/lib/auth/auth"
 import { headers } from "next/headers"
-import { Card } from "@/components/ui/card"
 
-export default async function DashboardPage() {
+export default async function ProfilePage() {
   const session = await auth.api.getSession({ headers: await headers() })
 
   return (
     <div className="w-full h-full flex items-center justify-center">
       <Card className="p-8">
         <div>
-          Dashboard
+          Profile
         </div>
 
         <div>

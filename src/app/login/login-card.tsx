@@ -45,7 +45,7 @@ const LoginCard = () => {
         <CardHeader className="gap-0">
           <CardTitle>
             <H1 className="text-3xl">
-              Shioru
+              Shugo
               <span className="text-xl text-primary-text">
                 .moe
               </span>
@@ -170,9 +170,11 @@ const LoginCard = () => {
               {
                 formState.type === "success" && (
                   <div>
+                    Logged in successfully.
+                    <br />
                     If you don&apos;t get redirected, click
                     {" "}
-                    <Link href="/dashboard">here</Link>
+                    <Link href="/brofile">here</Link>
                     .
                   </div>
                 )

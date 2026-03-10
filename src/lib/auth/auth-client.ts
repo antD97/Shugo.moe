@@ -2,7 +2,7 @@ import { inferAdditionalFields, usernameClient } from "better-auth/client/plugin
 import { createAuthClient } from "better-auth/react"
 
 const authClient = createAuthClient({
-  appName: "Shioru.moe",
+  appName: "Shugo.moe",
   baseURL: process.env.BETTER_AUTH_URL,
 
   plugins: [

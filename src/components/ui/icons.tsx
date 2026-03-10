@@ -8,9 +8,11 @@ import {
   TbBrandGitlab,
   TbBrandGoogle,
   TbBrandReddit,
+  TbHome,
   TbInfoCircle,
   TbLabel,
   TbLogin2,
+  TbLogout,
   TbMail,
   TbScale,
   TbUser,
@@ -18,7 +20,7 @@ import {
 
 function createIcon(Icon: IconType) {
   const ResultComponent = ({ className }: { className?: string }) => (
-    <Icon className={cn("inline size-4 -translate-y-[1px]", className)} />
+    <Icon className={cn("inline size-4 -translate-y-px", className)} />
   )
   ResultComponent.displayName = Icon.name
   return ResultComponent
@@ -30,9 +32,11 @@ const DiscordIcon = createIcon(TbBrandDiscord)
 const GithubIcon = createIcon(TbBrandGithub)
 const GitlabIcon = createIcon(TbBrandGitlab)
 const GoogleIcon = createIcon(TbBrandGoogle)
+const HomeIcon = createIcon(TbHome)
 const InfoIcon = createIcon(TbInfoCircle)
 const LabelIcon = createIcon(TbLabel)
 const LoginIcon = createIcon(TbLogin2)
+const LogoutIcon = createIcon(TbLogout)
 const MailIcon = createIcon(TbMail)
 const RedditIcon = createIcon(TbBrandReddit)
 const ScaleIcon = createIcon(TbScale)
@@ -45,9 +49,11 @@ export {
   GithubIcon,
   GitlabIcon,
   GoogleIcon,
+  HomeIcon,
   InfoIcon,
   LabelIcon,
   LoginIcon,
+  LogoutIcon,
   MailIcon,
   RedditIcon,
   ScaleIcon,

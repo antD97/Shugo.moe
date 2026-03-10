@@ -1,7 +1,9 @@
+import { authClient } from "@/lib/auth/auth-client"
 import { clientLogIn, clientRegister } from "@/lib/auth/auth-helpers"
 import { validateEmail, validatePassword, validateUsername } from "@/lib/validation"
 import { useRouter } from "next/navigation"
-import { useCallback } from "react"
+import { useCallback, useEffect } from "react"
+import { useDebouncedCallback } from "use-debounce"
 import { useImmer } from "use-immer"
 
 type FormState = {
@@ -45,7 +47,7 @@ const useLoginForm = ({
 
       if (!error) {
         setFormState({ type: "success" })
-        router.push("/dashboard")
+        router.push("/profile")
       }
       else {
         setFormState({ type: "ready", errors: [error.message ?? "Unknown server error."] })
@@ -76,13 +78,28 @@ const useLoginForm = ({
 
       if (!error) {
         setFormState({ type: "success" })
-        router.push("/dashboard")
+        router.push("/profile")
       }
       else {
         setFormState({ type: "ready", errors: [error.message ?? "Unknown server error."] })
       }
     }
   }, [altchaPayload, confirmPassword, email, mode, password, router, setFormState, username])
+
+  const checkUsernameAvailable = useDebouncedCallback(async () => {
+    if (mode !== "register" || formState.type !== "ready" || username.length < 3) return
+
+    const { data: response } = await authClient.isUsernameAvailable({ username })
+
+    setFormState((draft) => {
+      if (draft.type === "ready") {
+        if (!response?.available) return { ...draft, errors: ["Username is not available."] }
+        else return { ...draft, errors: [] }
+      }
+    })
+  }, 1_000)
+
+  useEffect(() => void checkUsernameAvailable(), [checkUsernameAvailable, username])
 
   return { mode, setMode: setModeAndClear, formState, setAltchaPayload, formAction }
 }
