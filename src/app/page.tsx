@@ -14,9 +14,7 @@ export default function HomePage() {
         </H1>
         <p>
           A
-          {" "}
           <Link href="https://cubari.moe/">Cubari</Link>
-          {" "}
           aggregator.
         </p>
       </div>

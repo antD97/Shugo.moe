@@ -1,11 +1,8 @@
-import { altchaPlugin } from "@/lib/auth/plugin-altcha"
-import { passwordValidationPlugin } from "@/lib/auth/plugin-password-validation"
-import { usernameRequirementsPlugin } from "@/lib/auth/username-requirements"
+import { altchaPlugin } from "@/lib/auth/altcha-plugin"
 import { prisma } from "@/lib/prisma-client"
-import { validateUsername } from "@/lib/validation"
 import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
-import { username } from "better-auth/plugins"
+import { magicLink, openAPI } from "better-auth/plugins"
 import { Resend } from "resend"
 
 const resend = new Resend(process.env.RESEND_API_KEY)
@@ -15,33 +12,40 @@ const auth = betterAuth({
   baseURL: process.env.BETTER_AUTH_URL,
   database: prismaAdapter(prisma, { provider: "postgresql" }),
 
-  emailAndPassword: {
-    enabled: true,
-    minPasswordLength: 8,
-    maxPasswordLength: 128,
-  },
-
-  emailVerification: {
-    sendOnSignUp: true,
-    sendVerificationEmail: async ({ user, url }) => {
-      resend.emails.send({
-        from: "auth@shugo.moe",
-        to: user.email,
-        subject: "Shugo.moe Email Verification",
-        text: `Click the link to verify your email: ${url}`,
-      }).catch(e => console.error("Failed to send verification email", e))
-    },
-  },
-
   plugins: [
-    username({
-      minUsernameLength: 3,
-      maxUsernameLength: 32,
-      usernameValidator: (username: string) => !validateUsername(username),
-    }),
-    passwordValidationPlugin,
     altchaPlugin,
-    usernameRequirementsPlugin,
+    openAPI(),
+    magicLink({
+      expiresIn: 5 * 60, // 5 minutes; same as the default
+      allowedAttempts: 1, // same as default
+      disableSignUp: false, // same as default
+      sendMagicLink: ({ email, url }) => {
+        resend.emails.send({
+          from: "login@shugo.moe",
+          to: email,
+          subject: "Shugo.moe Login",
+          text: `Click the link below to log in.\n\n${url}`,
+        }).catch(e => console.error("Failed to send verification email", e))
+      },
+    }),
+  ],
+
+  disabledPaths: [
+    "/sign-in/social",
+    "/sign-up/email",
+    "/sign-in/email",
+    "/reset-password",
+    "/verify-password",
+    "/verify-email",
+    "/send-verification-email",
+    "/change-email",
+    "/change-password",
+    "/update-user",
+    "/delete-user",
+    "/request-password-reset",
+    "/link-social",
+    "/link-accounts",
+    "/delete-user/callback",
   ],
 
   advanced: {

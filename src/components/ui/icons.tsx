@@ -3,19 +3,16 @@ import { IconType } from "react-icons/lib"
 import {
   TbArrowLeft,
   TbAsterisk,
-  TbBrandDiscord,
   TbBrandGithub,
-  TbBrandGitlab,
-  TbBrandGoogle,
-  TbBrandReddit,
   TbHome,
   TbInfoCircle,
-  TbLabel,
-  TbLogin2,
+  TbLogin,
   TbLogout,
   TbMail,
+  TbMailExclamation,
   TbScale,
   TbUser,
+  TbUserPlus,
 } from "react-icons/tb"
 
 function createIcon(Icon: IconType) {
@@ -28,34 +25,38 @@ function createIcon(Icon: IconType) {
 
 const ArrowLeftIcon = createIcon(TbArrowLeft)
 const AsteriskIcon = createIcon(TbAsterisk)
-const DiscordIcon = createIcon(TbBrandDiscord)
+// const DiscordIcon = createIcon(TbBrandDiscord)
 const GithubIcon = createIcon(TbBrandGithub)
-const GitlabIcon = createIcon(TbBrandGitlab)
-const GoogleIcon = createIcon(TbBrandGoogle)
+// const GitlabIcon = createIcon(TbBrandGitlab)
+// const GoogleIcon = createIcon(TbBrandGoogle)
 const HomeIcon = createIcon(TbHome)
 const InfoIcon = createIcon(TbInfoCircle)
-const LabelIcon = createIcon(TbLabel)
-const LoginIcon = createIcon(TbLogin2)
+// const LabelIcon = createIcon(TbLabel)
+const LoginIcon = createIcon(TbLogin)
 const LogoutIcon = createIcon(TbLogout)
+const MailExclamationIcon = createIcon(TbMailExclamation)
 const MailIcon = createIcon(TbMail)
-const RedditIcon = createIcon(TbBrandReddit)
+// const RedditIcon = createIcon(TbBrandReddit)
 const ScaleIcon = createIcon(TbScale)
 const UserIcon = createIcon(TbUser)
+const UserPlusIcon = createIcon(TbUserPlus)
 
 export {
   ArrowLeftIcon,
   AsteriskIcon,
-  DiscordIcon,
+  // DiscordIcon,
   GithubIcon,
-  GitlabIcon,
-  GoogleIcon,
+  // GitlabIcon,
+  // GoogleIcon,
   HomeIcon,
   InfoIcon,
-  LabelIcon,
+  // LabelIcon,
   LoginIcon,
   LogoutIcon,
+  MailExclamationIcon,
   MailIcon,
-  RedditIcon,
+  // RedditIcon,
   ScaleIcon,
   UserIcon,
+  UserPlusIcon,
 }

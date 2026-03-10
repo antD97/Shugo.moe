@@ -11,8 +11,6 @@ import { useCallback } from "react"
 import { IconType } from "react-icons/lib"
 import { toast } from "sonner"
 
-const RESTRICTED_PATHNAMES = ["/profile"]
-
 const NavButtons = () => {
   const { data: session } = authClient.useSession()
   const pathname = usePathname()
@@ -22,25 +20,29 @@ const NavButtons = () => {
     await authClient.signOut({
       fetchOptions: {
         onSuccess: () => {
-          if (RESTRICTED_PATHNAMES.includes(pathname)) router.push("/")
           toast.success("Logged out successfully.")
+          router.refresh()
         },
         onError: () => { toast.error("There was a problem logging out.") },
       },
     })
-  }, [pathname, router])
+  }, [router])
 
   return (
     <div className="absolute top-4 right-4 space-x-2">
       {pathname !== "/" && (<NavLink href="/" Icon={HomeIcon} tooltip="Home" />)}
-      {session
-        ? (
-            <>
-              {pathname !== "/profile" && (<NavLink href="/profile" Icon={UserIcon} tooltip="Profile" text={session.user.displayUsername || session.user.username} />)}
-              <NavButton onClick={logout} Icon={LogoutIcon} tooltip="Logout" />
-            </>
-          )
-        : (<NavLink href="/login" Icon={LoginIcon} tooltip="Login/Register" />)}
+      {session && (
+        <>
+          {pathname !== "/profile" && (
+            <NavLink href="/profile" Icon={UserIcon} tooltip="Profile" />
+            // <NavLink href="/profile" Icon={UserIcon} tooltip="Profile" text={session.user.displayUsername || session.user.username} />
+          )}
+          <NavButton onClick={logout} Icon={LogoutIcon} tooltip="Logout" />
+        </>
+      )}
+      {!session && pathname !== "/login" && (
+        <NavLink href="/login" Icon={LoginIcon} tooltip="Login/Register" />
+      )}
     </div>
   )
 }

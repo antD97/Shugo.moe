@@ -9,19 +9,16 @@ const Footer = () => {
         <CardContent className="flex justify-center gap-4">
           <Link href="/about">
             <InfoIcon />
-            {" "}
             About
           </Link>
           |
           <Link href="https://github.com/antD97/Shugo.moe">
             <GithubIcon />
-            {" "}
             Source
           </Link>
           |
           <Link href="/legal">
             <ScaleIcon />
-            {" "}
             Legal
           </Link>
         </CardContent>

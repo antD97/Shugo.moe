@@ -61,8 +61,3 @@ export type Account = Prisma.AccountModel
  * 
  */
 export type Verification = Prisma.VerificationModel
-/**
- * Model CubariPost
- * 
- */
-export type CubariPost = Prisma.CubariPostModel

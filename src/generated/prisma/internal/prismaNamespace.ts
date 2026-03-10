@@ -387,8 +387,7 @@ export const ModelName = {
   User: 'User',
   Session: 'Session',
   Account: 'Account',
-  Verification: 'Verification',
-  CubariPost: 'CubariPost'
+  Verification: 'Verification'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -404,7 +403,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "user" | "session" | "account" | "verification" | "cubariPost"
+    modelProps: "user" | "session" | "account" | "verification"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -704,80 +703,6 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
-    CubariPost: {
-      payload: Prisma.$CubariPostPayload<ExtArgs>
-      fields: Prisma.CubariPostFieldRefs
-      operations: {
-        findUnique: {
-          args: Prisma.CubariPostFindUniqueArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload> | null
-        }
-        findUniqueOrThrow: {
-          args: Prisma.CubariPostFindUniqueOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>
-        }
-        findFirst: {
-          args: Prisma.CubariPostFindFirstArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload> | null
-        }
-        findFirstOrThrow: {
-          args: Prisma.CubariPostFindFirstOrThrowArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>
-        }
-        findMany: {
-          args: Prisma.CubariPostFindManyArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>[]
-        }
-        create: {
-          args: Prisma.CubariPostCreateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>
-        }
-        createMany: {
-          args: Prisma.CubariPostCreateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        createManyAndReturn: {
-          args: Prisma.CubariPostCreateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>[]
-        }
-        delete: {
-          args: Prisma.CubariPostDeleteArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>
-        }
-        update: {
-          args: Prisma.CubariPostUpdateArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>
-        }
-        deleteMany: {
-          args: Prisma.CubariPostDeleteManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateMany: {
-          args: Prisma.CubariPostUpdateManyArgs<ExtArgs>
-          result: BatchPayload
-        }
-        updateManyAndReturn: {
-          args: Prisma.CubariPostUpdateManyAndReturnArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>[]
-        }
-        upsert: {
-          args: Prisma.CubariPostUpsertArgs<ExtArgs>
-          result: runtime.Types.Utils.PayloadToResult<Prisma.$CubariPostPayload>
-        }
-        aggregate: {
-          args: Prisma.CubariPostAggregateArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.AggregateCubariPost>
-        }
-        groupBy: {
-          args: Prisma.CubariPostGroupByArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.CubariPostGroupByOutputType>[]
-        }
-        count: {
-          args: Prisma.CubariPostCountArgs<ExtArgs>
-          result: runtime.Types.Utils.Optional<Prisma.CubariPostCountAggregateOutputType> | number
-        }
-      }
-    }
   }
 } & {
   other: {
@@ -824,12 +749,7 @@ export const UserScalarFieldEnum = {
   emailVerified: 'emailVerified',
   image: 'image',
   createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  username: 'username',
-  displayUsername: 'displayUsername',
-  role: 'role',
-  bannedAt: 'bannedAt',
-  banReason: 'banReason'
+  updatedAt: 'updatedAt'
 } as const
 
 export type UserScalarFieldEnum = (typeof UserScalarFieldEnum)[keyof typeof UserScalarFieldEnum]
@@ -878,21 +798,6 @@ export const VerificationScalarFieldEnum = {
 } as const
 
 export type VerificationScalarFieldEnum = (typeof VerificationScalarFieldEnum)[keyof typeof VerificationScalarFieldEnum]
-
-
-export const CubariPostScalarFieldEnum = {
-  id: 'id',
-  createdAt: 'createdAt',
-  updatedAt: 'updatedAt',
-  url: 'url',
-  name: 'name',
-  aliases: 'aliases',
-  author: 'author',
-  artist: 'artist',
-  userId: 'userId'
-} as const
-
-export type CubariPostScalarFieldEnum = (typeof CubariPostScalarFieldEnum)[keyof typeof CubariPostScalarFieldEnum]
 
 
 export const SortOrder = {
@@ -957,20 +862,6 @@ export type DateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel
  * Reference to a field of type 'DateTime[]'
  */
 export type ListDateTimeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'DateTime[]'>
-    
-
-
-/**
- * Reference to a field of type 'Role'
- */
-export type EnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role'>
-    
-
-
-/**
- * Reference to a field of type 'Role[]'
- */
-export type ListEnumRoleFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Role[]'>
     
 
 
@@ -1086,7 +977,6 @@ export type GlobalOmitConfig = {
   session?: Prisma.SessionOmit
   account?: Prisma.AccountOmit
   verification?: Prisma.VerificationOmit
-  cubariPost?: Prisma.CubariPostOmit
 }
 
 /* Types for Logging */
