@@ -5,6 +5,7 @@ import { H1 } from "@/components/ui/header"
 import { Link } from "@/components/ui/link"
 
 export default function HomePage() {
+  // prisma.
   return (
     <div className="flex flex-col items-center justify-center m-16 gap-16">
       <div className="flex flex-col items-center">
@@ -14,7 +15,9 @@ export default function HomePage() {
         </H1>
         <p>
           A
+          {" "}
           <Link href="https://cubari.moe/">Cubari</Link>
+          {" "}
           aggregator.
         </p>
       </div>

@@ -23,7 +23,7 @@ export default function RootLayout({ children }: Readonly<{ children: ReactNode 
   return (
     <html lang="en" className={cn("dark font-sans", martelSans.variable, josefinSlab.variable)}>
       <body className="min-h-screen max-w-screen overflow-scroll-y grid grid-rows-[1fr_auto] antialiased">
-        <div className="fixed bottom-0 left-0 -z-100 size-[80%] opacity-10 translate-x-[-20%] translate-y-[20%] rotate-[15deg] select-none">
+        <div className="fixed bottom-0 left-0 -z-100 size-[80%] opacity-10 translate-x-[-20%] translate-y-[20%] rotate-15 select-none">
           <Image src="/icon.svg" fill loading="eager" alt="Shugo background flower" />
         </div>
         <TooltipProvider>

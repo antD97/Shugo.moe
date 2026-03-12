@@ -14,40 +14,30 @@ type FormState = {
   type: "success-register"
 }
 
-const useLoginForm = (
+const useEmailLoginForm = (
   email: string,
+  altchaState: string | null,
   altchaPayload: string | null,
 ) => {
   const [formState, setFormState] = useImmer<FormState>({ type: "ready", errors: [] })
 
   const loginFormAction = useCallback(async () => {
+    if (altchaState !== "verified") setFormState({ type: "ready", errors: ["Missing CAPTCHA."] })
+
     setFormState({ type: "loading" })
     const { error } = await authClient.signIn.magicLink({
       email,
       callbackURL: "/profile",
-      errorCallbackURL: "/error?d=ml-signin", // TODO
-    })
-
-    if (error) setFormState({ type: "ready", errors: [error.message ?? "Unknown server error."] })
-    else setFormState({ type: "success-login" })
-  }, [email, setFormState])
-
-  const registerFormAction = useCallback(async () => {
-    setFormState({ type: "loading" })
-
-    const { error } = await authClient.signIn.magicLink({
-      email,
-      callbackURL: "/profile",
-      errorCallbackURL: "/error?d=ml-register", // TODO
+      errorCallbackURL: "/error",
     }, {
       headers: { [ALTCHA_PAYLOAD_HEADER]: altchaPayload ?? "" },
     })
 
     if (error) setFormState({ type: "ready", errors: [error.message ?? "Unknown server error."] })
-    else setFormState({ type: "success-register" })
-  }, [altchaPayload, email, setFormState])
+    else setFormState({ type: "success-login" })
+  }, [altchaState, setFormState, email, altchaPayload])
 
-  return { formState, loginFormAction, registerFormAction }
+  return { formState, setFormState, emailLoginFormAction: loginFormAction }
 }
 
-export { useLoginForm }
+export { useEmailLoginForm }

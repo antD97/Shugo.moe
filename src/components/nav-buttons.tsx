@@ -29,6 +29,7 @@ const NavButtons = () => {
   }, [router])
 
   return (
+    // TODO max width...
     <div className="absolute top-4 right-4 space-x-2">
       {pathname !== "/" && (<NavLink href="/" Icon={HomeIcon} tooltip="Home" />)}
       {session && (
@@ -79,3 +80,4 @@ const NavLink = ({
 )
 
 export { NavButtons }
+

@@ -7,88 +7,172 @@ datasource db {
   provider = "postgresql"
 }
 
-// model CubariPost {
-//   id        String   @id @default(nanoid())
-//   createdAt DateTime @default(now())
-//   updatedAt DateTime @updatedAt
+model CubariPost {
+  id        String    @id @default(nanoid())
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  deletedAt DateTime?
 
-//   url     String
-//   name    String
-//   aliases String[] @default([])
-//   author  String
-//   artist  String
+  url         String   @unique
+  name        String
+  aliases     String[]
+  author      String
+  artist      String
+  description String
+  tags        String[]
+  userId      String?
+  user        User?    @relation(fields: [userId], references: [id], onDelete: SetNull)
+  score       Float    @default(0)
+  votes       Vote[]
+  reports     Report[]
 
-//   user   User   @relation(fields: [userId], references: [id])
-//   userId String
+  @@index([createdAt])
+  @@index([userId])
+  @@index([tags], type: Gin)
+  @@map("cubari_post")
+}
 
-//   @@map("cubari_post")
-// }
+model Vote {
+  createdAt DateTime @default(now())
 
-// enum Role {
-//   USER
-//   MOD
-//   ADMIN
-// }
+  cubariPostId String
+  cubariPost   CubariPost @relation(fields: [cubariPostId], references: [id], onDelete: Cascade)
+  userId       String
+  user         User       @relation(fields: [userId], references: [id], onDelete: Cascade)
+  type         VoteType
+
+  @@id([cubariPostId, userId])
+  @@index([userId])
+  @@map("vote")
+}
+
+model Ban {
+  id        String    @id @default(nanoid())
+  createdAt DateTime  @default(now())
+  expiresAt DateTime?
+
+  bannedUserId String
+  bannedUser   User   @relation(name: "bansReceived", fields: [bannedUserId], references: [id], onDelete: Cascade)
+  issuerUserId String
+  issuerUser   User   @relation(name: "bansIssued", fields: [issuerUserId], references: [id], onDelete: Cascade)
+  reason       String
+
+  @@index([bannedUserId])
+  @@index([issuerUserId])
+  @@map("ban")
+}
+
+model Report {
+  id        String   @id @default(nanoid())
+  createdAt DateTime @default(now())
+
+  reportedUserId String
+  reportedUesr   User        @relation(name: "reportsReceived", fields: [reportedUserId], references: [id], onDelete: Cascade)
+  issuerUserId   String?
+  issuerUser     User?       @relation(name: "reportsIssued", fields: [issuerUserId], references: [id], onDelete: SetNull)
+  cubariPostId   String?
+  cubariPost     CubariPost? @relation(fields: [cubariPostId], references: [id], onDelete: SetNull)
+  reason         String
+
+  @@unique([issuerUserId, cubariPostId])
+  @@map("report")
+}
 
 model User {
-  id            String    @id
-  name          String
-  email         String
-  emailVerified Boolean   @default(false)
-  image         String?
-  createdAt     DateTime  @default(now())
-  updatedAt     DateTime  @updatedAt
-  sessions      Session[]
-  accounts      Account[]
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 
-  @@unique([email])
+  name              String
+  email             String    @unique
+  emailVerified     Boolean   @default(false)
+  image             String?
+  username          String?   @unique
+  displayName       String?
+  usernameUpdatedAt DateTime?
+  role              Role      @default(USER)
+  sessions          Session[]
+  accounts          Account[]
+
+  votes           Vote[]
+  cubariPosts     CubariPost[]
+  bansReceived    Ban[]        @relation(name: "bansReceived")
+  bansIssued      Ban[]        @relation(name: "bansIssued")
+  reportsReceived Report[]     @relation(name: "reportsReceived")
+  reportsIssued   Report[]     @relation(name: "reportsIssued")
+
   @@map("user")
 }
 
 model Session {
   id        String   @id
-  expiresAt DateTime
-  token     String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
+  expiresAt DateTime
+
+  userId    String
+  user      User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  token     String  @unique
   ipAddress String?
   userAgent String?
-  userId    String
-  user      User     @relation(fields: [userId], references: [id], onDelete: Cascade)
 
-  @@unique([token])
   @@index([userId])
   @@map("session")
 }
 
 model Account {
   id                    String    @id
-  accountId             String
-  providerId            String
-  userId                String
-  user                  User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  accessToken           String?
-  refreshToken          String?
-  idToken               String?
-  accessTokenExpiresAt  DateTime?
-  refreshTokenExpiresAt DateTime?
-  scope                 String?
-  password              String?
   createdAt             DateTime  @default(now())
   updatedAt             DateTime  @updatedAt
+  accessTokenExpiresAt  DateTime?
+  refreshTokenExpiresAt DateTime?
+
+  userId       String
+  user         User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  accountId    String
+  providerId   String
+  accessToken  String?
+  refreshToken String?
+  idToken      String?
+  scope        String?
+  password     String?
 
   @@index([userId])
   @@map("account")
 }
 
 model Verification {
-  id         String   @id
-  identifier String   @unique // <- had to manually add for magic links???
+  id        String   @id
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  expiresAt DateTime
+
+  identifier String @unique
   value      String
-  expiresAt  DateTime
-  createdAt  DateTime @default(now())
-  updatedAt  DateTime @updatedAt
 
   @@index([identifier])
+  @@index([expiresAt])
   @@map("verification")
+}
+
+model UsedAltchaChallenge {
+  id        String   @id @default(nanoid())
+  usedAt    DateTime @default(now())
+  expiresAt DateTime
+
+  challenge String @unique
+
+  @@index([expiresAt])
+  @@map("used_altcha_challenge")
+}
+
+enum Role {
+  USER
+  MODERATOR
+  ADMIN
+}
+
+enum VoteType {
+  UP_VOTE
+  DOWN_VOTE
 }

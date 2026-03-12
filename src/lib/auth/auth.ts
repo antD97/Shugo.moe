@@ -1,4 +1,4 @@
-import { altchaPlugin } from "@/lib/auth/altcha-plugin"
+import { shugoPlugin } from "@/lib/auth/shugo-plugin"
 import { prisma } from "@/lib/prisma-client"
 import { betterAuth } from "better-auth"
 import { prismaAdapter } from "better-auth/adapters/prisma"
@@ -12,8 +12,21 @@ const auth = betterAuth({
   baseURL: process.env.BETTER_AUTH_URL,
   database: prismaAdapter(prisma, { provider: "postgresql" }),
 
+  user: {
+    additionalFields: {
+      username: {
+        type: "string",
+        required: false,
+      },
+      displayName: {
+        type: "string",
+        required: false,
+      },
+    },
+  },
+
   plugins: [
-    altchaPlugin,
+    shugoPlugin,
     openAPI(),
     magicLink({
       expiresIn: 5 * 60, // 5 minutes; same as the default
@@ -22,7 +35,7 @@ const auth = betterAuth({
       sendMagicLink: ({ email, url }) => {
         resend.emails.send({
           from: "login@shugo.moe",
-          to: email,
+          to: email.toLowerCase(),
           subject: "Shugo.moe Login",
           text: `Click the link below to log in.\n\n${url}`,
         }).catch(e => console.error("Failed to send verification email", e))

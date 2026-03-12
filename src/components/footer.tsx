@@ -1,6 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card"
 import { GithubIcon, InfoIcon, ScaleIcon } from "@/components/ui/icons"
 import { Link } from "@/components/ui/link"
+import { Separator } from "@/components/ui/separator"
 
 const Footer = () => {
   return (
@@ -9,16 +10,19 @@ const Footer = () => {
         <CardContent className="flex justify-center gap-4">
           <Link href="/about">
             <InfoIcon />
+            {" "}
             About
           </Link>
-          |
+          <Separator orientation="vertical" className="bg-foreground" />
           <Link href="https://github.com/antD97/Shugo.moe">
             <GithubIcon />
+            {" "}
             Source
           </Link>
-          |
+          <Separator orientation="vertical" className="bg-foreground" />
           <Link href="/legal">
             <ScaleIcon />
+            {" "}
             Legal
           </Link>
         </CardContent>
@@ -28,4 +32,3 @@ const Footer = () => {
 }
 
 export { Footer }
-
